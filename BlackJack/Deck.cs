@@ -61,8 +61,11 @@ public class Deck
         
         int numToHave11 = (int)Math.Floor(((21 - (double)tot) / 11));
 
-        tot += numToHave11 * 11 + (numOfAces - numToHave11);
-
+        if (numToHave11 > 0)
+        {
+            tot += numToHave11 * 11 + (numOfAces - numToHave11);
+        }
+        
         return tot;
 
     }

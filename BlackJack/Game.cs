@@ -30,6 +30,7 @@ public class Game
             {
                 Console.Write(VARIABLE.Name + "  ");
             }
+            Console.Write( "| Total " + p.Hand.Total());
             Console.WriteLine();
             Console.WriteLine("0 to Hit , 1 to stand");
             switch (Console.ReadLine())
@@ -50,6 +51,7 @@ public class Game
             {
                 Console.Write(VARIABLE.Name + " ");
             }
+            Console.Write( "| Total " + dealer.Hand.Total());
             Console.WriteLine();
         }
         else if (p.Hand.Total() == 21)
@@ -59,39 +61,53 @@ public class Game
             Console.Write("Dealers Hand: "  );
             foreach (var VARIABLE in dealer.Hand.deck)
             {
-                Console.Write("," +VARIABLE.Name + " ");
+                Console.Write(VARIABLE.Name + " ");
             }
+            Console.Write( "| Total " + dealer.Hand.Total());
             Console.WriteLine();
         }
         else
         {
-            Console.WriteLine("BlackJack");
             Console.Write("Dealers Hand: "  );
             foreach (var VARIABLE in dealer.Hand.deck)
             {
                 Console.Write(VARIABLE.Name + " ");
             }
+
+            finished = false;
             while (dealer.Hand.Total() < 16 && dealer.Hand.Total() < p.Hand.Total() && !finished)
             {
-                dealer.Move(Choice.hit, deck);
-                Console.Write(dealer.Hand.deck[dealer.Hand.deck.Count-1].Name + " ");
-                Thread.Sleep(300);
+                finished = dealer.Move(Choice.hit, deck);
+                Console.Write(dealer.Hand.deck[dealer.Hand.deck.Count - 1].Name + " ");
+                Thread.Sleep(1000);
             }
+            Console.Write( "| Total " + dealer.Hand.Total());
+            Console.WriteLine();
             if (dealer.Hand.Total() > 21)
             {
-                Console.WriteLine();
-                Console.WriteLine("YOU WIN");
+               Console.WriteLine("YOU WIN");
             }
             else if (dealer.Hand.Total() == 21 || dealer.Hand.Total() > p.Hand.Total())
             {
-                Console.WriteLine();
                 Console.WriteLine("YOU LOSE");
+            }
+            else
+            {
+                Console.WriteLine("YOU WIN");  
             }
 
         }
-
+        
+        Console.Write("PLayers hand: ");
+        foreach (var VARIABLE in p.Hand.deck)
+        {
+            Console.Write(VARIABLE.Name + "  ");
+        }
+        Console.Write( "| Total " + p.Hand.Total());
+        Console.WriteLine();
         Console.WriteLine("Press Enter To replay");
         Console.ReadLine();
+        Console.Clear();
         Game g = new Game(new Player());
         g.StartGame();    
     }
