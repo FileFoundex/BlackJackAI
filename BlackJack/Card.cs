@@ -10,14 +10,9 @@ public class Card
     { 
         this.name = name;
         this.value = value;
+        this.secondaryValue = 0;
     }
     
-    public Card(string name, int value, int secondaryValue)
-    {
-        this.name = name;
-        this.value = value;
-        this.secondaryValue = secondaryValue;
-    }
   
     public string Name
     {
@@ -28,12 +23,22 @@ public class Card
     {
         get { return value; }
     }
+ 
+}
+
+public class Ace : Card
+{
+    private int secondaryValue;
+    
+    public Ace(string name, int value, int secondaryValue) : base(name , value)
+    {
+        this.secondaryValue = secondaryValue;
+    }
     
     public int SecondaryValue
     {
         get { return secondaryValue; }
     }
 }
-
 
 
